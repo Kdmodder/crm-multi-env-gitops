@@ -1,0 +1,43 @@
+apiVersion: apps/v1
+kind: Deployment
+
+metadata:
+  name: customer-service
+  annotations:
+    argocd.argoproj.io/sync-wave: "3"
+  labels:
+    version: v1
+    app: customer-service
+
+spec:
+  replicas: 1
+
+  selector:
+    matchLabels:
+      app: customer-service
+
+  template:
+    metadata:
+      labels:
+        version: v1
+        app: customer-service
+
+    spec:
+      containers:
+        - name: customer-service
+          image: kdmodder/customer-service:1.0.0
+          imagePullPolicy: Always
+
+          ports:
+            - containerPort: 8082
+
+          resources:
+            requests:
+              cpu: "100m"
+              memory: "256Mi"
+
+            limits:
+              cpu: "500m"
+              memory: "1Gi"
+
+

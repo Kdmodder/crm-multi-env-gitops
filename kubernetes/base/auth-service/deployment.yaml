@@ -1,0 +1,32 @@
+apiVersion: apps/v1
+kind: Deployment
+
+metadata:
+  name: auth-service
+  annotations:
+    argocd.argoproj.io/sync-wave: "2"
+  labels:
+    version: v1
+    app: auth-service
+
+spec:
+  replicas: 1
+
+  selector:
+    matchLabels:
+      app: auth-service
+
+  template:
+    metadata:
+      labels:
+        version: v1
+        app: auth-service
+
+    spec:
+      containers:
+      - name: auth-service
+        image: kdmodder/auth-service:1.0.0
+        imagePullPolicy: Always
+
+        ports:
+        - containerPort: 8081

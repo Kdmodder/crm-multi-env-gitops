@@ -1,0 +1,43 @@
+apiVersion: apps/v1
+kind: Deployment
+
+metadata:
+  name: marketing-service
+  annotations:
+    argocd.argoproj.io/sync-wave: "3"
+  labels:
+    version: v1
+    app: marketing-service
+
+spec:
+  replicas: 1
+
+  selector:
+    matchLabels:
+      app: marketing-service
+
+  template:
+    metadata:
+      labels:
+        version: v1
+        app: marketing-service
+
+    spec:
+      containers:
+        - name: marketing-service
+          image: kdmodder/marketing-service:1.0.0
+          imagePullPolicy: Always
+
+          ports:
+            - containerPort: 8084
+
+          resources:
+            requests:
+              cpu: "25m"
+              memory: "64Mi"
+
+            limits:
+              cpu: "250m"
+              memory: "512Mi"
+
+         

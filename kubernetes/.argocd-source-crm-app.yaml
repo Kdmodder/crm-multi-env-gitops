@@ -1,0 +1,14 @@
+kustomize:
+  images:
+  - kdmodder/frontend:1.0.5
+  - kdmodder/analytics-service:1.0.0
+  - kdmodder/api-gateway:1.0.0
+  - kdmodder/auth-service:1.0.1
+  - kdmodder/customer-service:1.0.0
+  - kdmodder/discovery-server:1.0.0
+  - kdmodder/integration-service:1.0.0
+  - kdmodder/marketing-service:1.0.0
+  - kdmodder/notification-service:1.0.0
+  - kdmodder/sales-service:1.0.0
+  - kdmodder/support-service:1.0.0
+  - kdmodder/workflow-service:1.0.0

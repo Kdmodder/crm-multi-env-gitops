@@ -1,0 +1,25 @@
+apiVersion: autoscaling/v2
+kind: HorizontalPodAutoscaler
+
+metadata:
+  annotations:
+    argocd.argoproj.io/sync-wave: "3"
+  name: sales-service-hpa
+
+spec:
+  scaleTargetRef:
+    apiVersion: apps/v1
+    kind: Deployment
+    name: sales-service
+
+  minReplicas: 1
+  maxReplicas: 2
+
+  metrics:
+  - type: Resource
+    resource:
+      name: cpu
+
+      target:
+        type: Utilization
+        averageUtilization: 70

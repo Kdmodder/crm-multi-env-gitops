@@ -1,0 +1,19 @@
+apiVersion: cert-manager.io/v1
+kind: ClusterIssuer
+metadata:
+  name: letsencrypt-prod
+spec:
+  acme:
+    email: sureshkundan913@gmail.com
+    server: https://acme-v02.api.letsencrypt.org/directory
+
+    privateKeySecretRef:
+      name: letsencrypt-prod
+
+    solvers:
+    - http01:
+        gatewayHTTPRoute:
+          parentRefs:
+          - name: crm-gateway-api
+            namespace: kd
+            kind: Gateway

@@ -1,0 +1,20 @@
+apiVersion: v1
+kind: Service
+
+metadata:
+  name: mysql
+  namespace: kd
+  annotations:
+    argocd.argoproj.io/sync-wave: "0"
+
+
+spec:
+  selector:
+    app: mysql
+
+  ports:
+  - name: tcp-mysql
+    port: 3306
+    targetPort: 3306
+
+  type: ClusterIP

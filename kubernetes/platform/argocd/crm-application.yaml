@@ -1,0 +1,67 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+
+metadata:
+  name: crm-app
+  namespace: argocd
+  annotations:
+
+    notifications.argoproj.io/subscribe.on-deployed.email: sureshkundan913@gmail.com
+    notifications.argoproj.io/subscribe.on-health-degraded.email: sureshkundan913@gmail.com
+    argocd-image-updater.argoproj.io/image-list: |
+      frontend=kdmodder/frontend,
+      analytics-service=kdmodder/analytics-service,
+      api-gateway=kdmodder/api-gateway,
+      auth-service=kdmodder/auth-service,
+      customer-service=kdmodder/customer-service,
+      discovery-server=kdmodder/discovery-server,
+      integration-service=kdmodder/integration-service,
+      marketing-service=kdmodder/marketing-service,
+      notification-service=kdmodder/notification-service,
+      sales-service=kdmodder/sales-service,
+      support-service=kdmodder/support-service,
+      workflow-service=kdmodder/workflow-service
+
+    argocd-image-updater.argoproj.io/write-back-method: git:secret:argocd/argocd-image-updater-git-creds
+    argocd-image-updater.argoproj.io/git-branch: staging
+    argocd-image-updater.argoproj.io/frontend.update-strategy: semver
+    argocd-image-updater.argoproj.io/analytics-service.update-strategy: semver
+    argocd-image-updater.argoproj.io/api-gateway.update-strategy: semver
+    argocd-image-updater.argoproj.io/auth-service.update-strategy: semver
+    argocd-image-updater.argoproj.io/customer-service.update-strategy: semver
+    argocd-image-updater.argoproj.io/discovery-server.update-strategy: semver
+    argocd-image-updater.argoproj.io/integration-service.update-strategy: semver
+    argocd-image-updater.argoproj.io/marketing-service.update-strategy: semver
+    argocd-image-updater.argoproj.io/notification-service.update-strategy: semver
+    argocd-image-updater.argoproj.io/sales-service.update-strategy: semver
+    argocd-image-updater.argoproj.io/support-service.update-strategy: semver
+    argocd-image-updater.argoproj.io/workflow-service.update-strategy: semver
+
+
+spec:
+  project: default
+
+  ignoreDifferences:
+    - group: apps
+      kind: Deployment
+      jsonPointers:
+        - /spec/replicas
+
+
+  source:
+    repoURL: https://github.com/Kdmodder/CRM_CICD_devops.git
+    targetRevision: staging
+    path: kubernetes
+    kustomize: {}
+
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: kd
+
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
+
+    syncOptions:
+      - CreateNamespace=true

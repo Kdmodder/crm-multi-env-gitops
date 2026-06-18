@@ -1,0 +1,43 @@
+apiVersion: apps/v1
+kind: Deployment
+
+metadata:
+  name: workflow-service
+  annotations:
+    argocd.argoproj.io/sync-wave: "3"
+  labels:
+    version: v1
+    app: workflow-service
+
+spec:
+  replicas: 1
+
+  selector:
+    matchLabels:
+      app: workflow-service
+
+  template:
+    metadata:
+      labels:
+        version: v1
+        app: workflow-service
+
+    spec:
+      containers:
+        - name: workflow-service
+          image: kdmodder/workflow-service:1.0.0
+          imagePullPolicy: Always
+
+          ports:
+            - containerPort: 8087
+
+          resources:
+            requests:
+              cpu: "25m"
+              memory: "64Mi"
+
+            limits:
+              cpu: "250m"
+              memory: "512Mi"
+
+         

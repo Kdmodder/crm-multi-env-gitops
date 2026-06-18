@@ -1,0 +1,43 @@
+apiVersion: apps/v1
+kind: Deployment
+
+metadata:
+  name: sales-service
+  annotations:
+    argocd.argoproj.io/sync-wave: "3"
+  labels:
+    version: v1
+    app: sales-service
+
+spec:
+  replicas: 1
+
+  selector:
+    matchLabels:
+      app: sales-service
+
+  template:
+    metadata:
+      labels:
+        version: v1
+        app: sales-service
+
+    spec:
+      containers:
+        - name: sales-service
+          image: kdmodder/sales-service:1.0.0
+          imagePullPolicy: Always
+
+          ports:
+            - containerPort: 8083
+
+          resources:
+            requests:
+              cpu: "25m"
+              memory: "64Mi"
+
+            limits:
+              cpu: "250m"
+              memory: "512Mi"
+
+          

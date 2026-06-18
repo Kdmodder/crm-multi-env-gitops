@@ -1,0 +1,28 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: discovery-server
+  annotations:
+    argocd.argoproj.io/sync-wave: "1"
+  labels:
+    version: v1
+    app: discovery-server
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: discovery-server
+  template:
+    metadata:
+      labels:
+        version: v1
+        app: discovery-server
+    spec:
+      containers:
+      - name: discovery-server
+        image: kdmodder/discovery-server:1.0.0
+        imagePullPolicy: Always
+        ports:
+        - containerPort: 8761
+
+

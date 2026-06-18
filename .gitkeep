@@ -1,0 +1,9 @@
+touch kubernetes/marketing-service/.gitkeep
+touch kubernetes/notification-service/.gitkeep
+touch kubernetes/sales-service/.gitkeep
+touch kubernetes/analytics-service/.gitkeep
+touch kubernetes/support-service/.gitkeep
+touch kubernetes/workflow-service/.gitkeep
+touch kubernetes/integration-service/.gitkeep
+touch kubernetes/frontend/.gitkeep
+
