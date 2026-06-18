@@ -1,0 +1,20 @@
+name: workflow-service CI/CD
+
+on:
+  push:
+    branches:
+      - staging
+    paths:
+      - 'services/workflow-service/**'
+
+  workflow_dispatch:
+
+jobs:
+  build:
+    uses: ./.github/workflows/reusable-build.yml
+
+    with:
+      service: workflow-service
+      service_path: services/workflow-service
+
+    secrets: inherit

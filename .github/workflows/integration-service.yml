@@ -1,0 +1,20 @@
+name: integration-service CI/CD
+
+on:
+  push:
+    branches:
+      - staging
+    paths:
+      - 'services/integration-service/**'
+
+  workflow_dispatch:
+
+jobs:
+  build:
+    uses: ./.github/workflows/reusable-build.yml
+
+    with:
+      service: integration-service
+      service_path: services/integration-service
+
+    secrets: inherit

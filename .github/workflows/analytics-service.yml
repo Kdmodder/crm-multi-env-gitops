@@ -1,0 +1,20 @@
+name: analytics-service CI/CD
+
+on:
+  push:
+    branches:
+      - staging
+    paths:
+      - 'services/analytics-service/**'
+
+  workflow_dispatch:
+
+jobs:
+  build:
+    uses: ./.github/workflows/reusable-build.yml
+
+    with:
+      service: analytics-service
+      service_path: services/analytics-service
+
+    secrets: inherit

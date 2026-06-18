@@ -1,0 +1,20 @@
+name: support-service CI/CD
+
+on:
+  push:
+    branches:
+      - staging
+    paths:
+      - 'services/support-service/**'
+
+  workflow_dispatch:
+
+jobs:
+  build:
+    uses: ./.github/workflows/reusable-build.yml
+
+    with:
+      service: support-service
+      service_path: services/support-service
+
+    secrets: inherit

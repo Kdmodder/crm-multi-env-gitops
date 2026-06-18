@@ -1,0 +1,20 @@
+name: marketing-service CI/CD
+
+on:
+  push:
+    branches:
+      - staging
+    paths:
+      - 'services/marketing-service/**'
+
+  workflow_dispatch:
+
+jobs:
+  build:
+    uses: ./.github/workflows/reusable-build.yml
+
+    with:
+      service: marketing-service
+      service_path: services/marketing-service
+
+    secrets: inherit

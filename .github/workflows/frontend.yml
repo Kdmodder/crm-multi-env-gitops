@@ -1,0 +1,20 @@
+name: frontend CI/CD
+
+on:
+  push:
+    branches:
+      - staging
+    paths:
+      - 'frontend/**'
+
+  workflow_dispatch:
+
+jobs:
+  build:
+    uses: ./.github/workflows/reusable-build.yml
+
+    with:
+      service: frontend
+      service_path: frontend
+
+    secrets: inherit
