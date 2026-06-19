@@ -1,0 +1,27 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+
+metadata:
+  name: crm-staging
+  namespace: argocd
+
+spec:
+  project: crm-platform
+
+  source:
+    repoURL: https://github.com/Kdmodder/crm-multi-env-gitops.git
+    targetRevision: main
+    path: kubernetes/overlays/staging
+    kustomize: {}
+
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: crm-staging
+
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
+
+    syncOptions:
+      - CreateNamespace=true
