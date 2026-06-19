@@ -1,0 +1,26 @@
+apiVersion: argoproj.io/v1alpha1
+kind: AppProject
+
+metadata:
+  name: crm-platform
+  namespace: argocd
+
+spec:
+  description: CRM Multi Environment Platform
+
+  sourceRepos:
+    - https://github.com/Kdmodder/crm-multi-env-gitops.git
+
+  destinations:
+    - namespace: crm-dev
+      server: https://kubernetes.default.svc
+
+    - namespace: crm-staging
+      server: https://kubernetes.default.svc
+
+    - namespace: crm-prod
+      server: https://kubernetes.default.svc
+
+  clusterResourceWhitelist:
+    - group: '*'
+      kind: '*'
