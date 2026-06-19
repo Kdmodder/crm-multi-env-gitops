@@ -20,7 +20,7 @@ spec:
     spec:
       containers:
         - name: frontend
-          image: kdmodder/frontend:1.0.4
+          image: kdmodder/frontend:1.0.6
           imagePullPolicy: Always
 
           ports:
